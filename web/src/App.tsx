@@ -5,28 +5,43 @@ import RepoList from './components/repoList.component';
 import { useEffect, useState } from 'react';
 
 export function App() {
-  const [repo, setRepo] = useState([]);
+  const [repos, setRepos] = useState([]);
+  const [isError, setIsError] = useState(false);
+
   const url = 'http://localhost:4000/repos';
+
   const getRepos = async () => {
-    const response = await fetch(url);
-    const result = await response.json();
-    setRepo(result);
+    try {
+      const response = await fetch(url);
+      if (response.status === 200) {
+        const result = await response.json();
+        setRepos(result.data);
+      } else {
+        throw new Error('error');
+      }
+    } catch (err) {
+      setIsError(true);
+    }
   };
 
   useEffect(() => {
     getRepos();
   }, []);
 
-  console.log('repolist', repo);
+  console.log('repolist', repos);
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<RepoList />} />
-          <Route path="/repo" element={<Repo />} />
-        </Routes>
-      </BrowserRouter>
+      {!isError ? (
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<RepoList repos={repos} />} />
+            <Route path="/repo" element={<Repo />} />
+          </Routes>
+        </BrowserRouter>
+      ) : (
+        <div>Can not connet to database!Please Try Agian!</div>
+      )}
     </div>
   );
 }
