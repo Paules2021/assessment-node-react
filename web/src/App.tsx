@@ -36,7 +36,7 @@ export function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<RepoList repos={repos} />} />
-            <Route path="/repo" element={<Repo />} />
+            <Route path="/repo/:id" element={<Repo repos={repos} />} />
           </Routes>
         </BrowserRouter>
       ) : (

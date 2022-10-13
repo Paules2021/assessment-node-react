@@ -1,9 +1,11 @@
 import './style.css';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const defaultLanguage = 'Select Language';
 
 const RepoList = ({ repos }) => {
+  const navigate = useNavigate();
   const [filteredData, setFilteredData] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState(defaultLanguage);
 
@@ -35,6 +37,10 @@ const RepoList = ({ repos }) => {
     list();
   }, [orderedRepos, selectedLanguage]);
 
+  const handleOnClick = (id) => {
+    navigate(`/repo/${id}`, { replace: true });
+  };
+
   return (
     <div className="repos_list">
       <div className="repos_select">
@@ -63,9 +69,13 @@ const RepoList = ({ repos }) => {
             const { id, name, description, language, forks_count, created_at } =
               repo;
             return (
-              <tr className="repos_item" key={id}>
+              <tr
+                className="repos_item"
+                key={id}
+                onClick={() => handleOnClick(id)}
+              >
                 <td>{name}</td>
-                <td>{description}</td>
+                <td>{description === null ? <span> - </span> : description}</td>
                 <td>{language}</td>
                 <td>{forks_count}</td>
                 <td>{created_at}</td>
