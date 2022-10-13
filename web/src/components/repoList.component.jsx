@@ -44,7 +44,7 @@ const RepoList = ({ repos }) => {
   return (
     <div className="repos_list">
       <div className="repos_select">
-        <span>Select Language Type: </span>
+        <span>Select Language : </span>
         <select onChange={(e) => setSelectedLanguage(e.target.value)}>
           <option value={defaultLanguage}>{defaultLanguage}</option>
           {uniqueLanguageList.map((item, index) => {

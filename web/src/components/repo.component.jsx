@@ -14,12 +14,13 @@ const Repo = ({ repos }) => {
   }
   return (
     <div className="repo">
-      <h1>{repo.name}</h1>
+      <h1 className="repo_title">{repo.name}</h1>
       <div className="repo_detail">
         <p>The most recent commit date: {commitDate(repo.created_at)}</p>
         <p>Author: {repo.owner.login} </p>
         <p>Message: Not Found </p>
       </div>
+      <br />
       <div className="repo_link">
         <Link to="/">Back</Link>
       </div>

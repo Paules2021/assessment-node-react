@@ -30,6 +30,8 @@ export function App() {
 
   console.log('repolist', repos);
 
+  const reload = () => window.location.reload();
+
   return (
     <div className="App">
       {!errorValue ? (
@@ -40,7 +42,10 @@ export function App() {
           </Routes>
         </BrowserRouter>
       ) : (
-        <div>Can not connet to database!Please Try Agian!</div>
+        <span>
+          <div>Can not connet to database!Please Try Agian!</div>
+          <button onClick={reload}>Reload</button>
+        </span>
       )}
     </div>
   );
