@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 export function App() {
   const [repos, setRepos] = useState([]);
-  const [isError, setIsError] = useState(false);
+  const [errorValue, setErrorValue] = useState(false);
 
   const url = 'http://localhost:4000/repos';
 
@@ -20,7 +20,7 @@ export function App() {
         throw new Error('error');
       }
     } catch (err) {
-      setIsError(true);
+      setErrorValue(true);
     }
   };
 
@@ -32,7 +32,7 @@ export function App() {
 
   return (
     <div className="App">
-      {!isError ? (
+      {!errorValue ? (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<RepoList repos={repos} />} />

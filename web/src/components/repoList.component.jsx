@@ -1,6 +1,11 @@
 import './style.css';
 
 const RepoList = ({ repos }) => {
+  //display repos in reverse chronological order by creation date
+  const orderedRepos = repos.sort((x, y) => {
+    return new Date(y.created_at).getTime() - new Date(x.created_at).getTime();
+  });
+
   return (
     <div className="repos_list">
       <table>
@@ -11,7 +16,7 @@ const RepoList = ({ repos }) => {
             <th>Language</th>
             <th>Corks count</th>
           </tr>
-          {repos.map((repo) => {
+          {orderedRepos.map((repo) => {
             const { id, name, description, language, forks_count } = repo;
             return (
               <tr className="repos_item" key={id}>
